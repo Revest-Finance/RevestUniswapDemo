@@ -57,6 +57,12 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
             || super.supportsInterface(interfaceId);
     }
 
+
+    // For this function, will need to send value equal to Revest fees
+    // Can be discerned via IRevest.getERC20Fee and IRevest.getFlatWeiFee
+    // On Fantom, flat rate of 3 FTM
+    // On Matic, flat rate of 5 MATIC
+    // On AVAX, pure percentage
     function mintTimeLockToUniswap(
         uint endTime,
         uint amountPerFNFT,

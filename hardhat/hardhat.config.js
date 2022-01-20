@@ -16,16 +16,38 @@ module.exports = {
                 blockNumber: 13705400,
             },
         },
-         rinkeby: {
-             url: "https://eth-rinkeby.alchemyapi.io/v2/srVBZIhy3PWWN1URQfd-KlTJk8q964kr",
-             accounts: [process.env.TESTING_PRIVATE]
+        rinkeby: {
+            url: process.env.RINKEBY,
+            accounts: [process.env.TESTING_PRIVATE]
 
-         },
-           mainnet: {
-               url: process.env.MAINNET ,
-               accounts: [process.env.PRIVATE_KEY],
-               blockGasLimit: 12487794,
-           },
+        },
+        mainnet: {
+            url: process.env.MAINNET ,
+            accounts: [process.env.PRIVATE_KEY],
+            blockGasLimit: 12487794,
+        },
+        matic: {
+            url: process.env.MATIC,
+            accounts: [process.env.PRIVATE_KEY],
+            gasPrice: 90e9,
+            chainId: 137,
+            blockGasLimit: 12487794
+        },
+        fantom: {
+            url: "https://rpc.ftm.tools",
+            accounts: [process.env.PRIVATE_KEY],
+            gasPrice: 813e9,
+            chainId: 250,
+            blockGasLimit: 12487794
+        },
+        avax: {
+            url: "https://api.avax.network/ext/bc/C/rpc",
+            accounts: [process.env.PRIVATE_KEY],
+            gasPrice: 70e9,
+            chainId: 43114,
+            blockGasLimit: 8000000
+        }
+
     },
     solidity: {
         version: "0.8.4",

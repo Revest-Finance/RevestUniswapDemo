@@ -15,7 +15,7 @@ async function main() {
     };
 
     const WETH ={
-        1: ETH,
+        1:"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
         4:"0xc778417e063141139fce010982780140aa0cd5ab",
         137:"0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
         250:"0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",

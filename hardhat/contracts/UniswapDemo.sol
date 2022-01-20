@@ -39,15 +39,16 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
 
     uint public constant PRECISION = 10**27;
     uint private constant MAX_INT = 2 ** 256 - 1;
-    address private constant UNISWAP_V2_ROUTER = 0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D;
+    address private immutable UNISWAP_V2_ROUTER;
 
     mapping (uint => address[]) public pendingTrades;
 
     // Gas saving measure
     mapping (uint => bool) private approvedTokens;
 
-    constructor(address _provider) {
+    constructor(address _provider, address _router) {
         addressRegistry = _provider;
+        UNISWAP_V2_ROUTER = _router;
     }
 
     function supportsInterface(bytes4 interfaceId) public view override(ERC165, IERC165) returns (bool) {

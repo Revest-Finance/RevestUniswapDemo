@@ -22,17 +22,26 @@ async function main() {
         43114:"0xb31f66aa3c1e785363f0875a1b74e27b85fd66c7"
     };
 
+    const UNISWAP = {
+        1: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+        4: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+        137: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff", //QuickSwap
+        250: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52", //SpiritSwap
+        43114: "0xE54Ca86531e17Ef3616d22Ca28b0D458b6C89106"//Pangolin
+    }
+
     const signers = await ethers.getSigners();
     const owner = signers[0];
     const network = await ethers.provider.getNetwork();
     const chainId = network.chainId;
 
     let PROVIDER_ADDRESS = PROVIDERS[chainId];
+    let UNISWAP_ADDRESS = UNISWAP[chainId];
     
     console.log(seperator);
     console.log("\tDeploying Uniswap Test System");
     const UniswapDemoFactory = await ethers.getContractFactory("UniswapDemo");
-    const UniswapDemo = await UniswapDemoFactory.deploy(PROVIDER_ADDRESS);
+    const UniswapDemo = await UniswapDemoFactory.deploy(PROVIDER_ADDRESS, UNISWAP_ADDRESS);
     await UniswapDemo.deployed();
     console.log("UniswapDemo Deployed at: " + UniswapDemo.address);
 

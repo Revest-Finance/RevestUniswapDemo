@@ -121,7 +121,6 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
             // Utilize fail-safe to avoid total reversion, transfer tokens to caller
             IERC20(asset).safeTransfer(owner, totalAmountToSwap);
         }
-
         if(quantity == IFNFTHandler(IAddressRegistry(addressRegistry).getRevestFNFT()).getSupply(fnftId)) {
             // Then we have traded every FNFT in this series and we can perform garbage clean up
             delete pendingTrades[fnftId];

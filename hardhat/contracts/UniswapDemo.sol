@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/access/Ownable.sol";
-
+import "./interfaces/IAddressRegistry.sol";
 import "./interfaces/IOutputReceiverV2.sol";
 import "./interfaces/ITokenVault.sol";
 import "./interfaces/IRevest.sol";
@@ -15,6 +14,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol";
 import '@openzeppelin/contracts/utils/introspection/ERC165.sol';
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
 // Uniswap imports
 import "./lib/uniswap/IUniswapV2Factory.sol";
@@ -123,7 +123,7 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
 
     // Not applicable, as these cannot be split
     // Why not? We don't enable it in IRevest.FNFTConfig
-    function handleFNFTRemaps(uint originalId, uint[] memory newIds, bool cleanup) external pure override {
+    function handleFNFTRemaps(uint, uint[] memory, bool) external pure override {
         require(false, 'Not applicable');
     }
 

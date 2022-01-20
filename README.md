@@ -1,9 +1,10 @@
 # Setup
 
-1. Run npm install
-2. Create a .env file under /hardhat according to .envtemplate
-3. Use "npx hardhat run scripts/deploy-uniswap-test.js --network YOURNETWORKHERE" to deploy the contract
-4. Use 'npx hardhat run scripts/verify-uniswap-test.js --network YOURNETWORKHERE" to verify the contract after pasting its address in
+1. cd into hardhat
+2. Run npm install
+3. Create a .env file under /hardhat according to .envtemplate
+4. Use "npx hardhat run scripts/deploy-uniswap-test.js --network YOURNETWORKHERE" to deploy the contract
+5. Use 'npx hardhat run scripts/verify-uniswap-test.js --network YOURNETWORKHERE" to verify the contract after pasting its address in
 
 # Notes
 The contract uses the JSON file found at uniswapTest.json to render its information on the frontend

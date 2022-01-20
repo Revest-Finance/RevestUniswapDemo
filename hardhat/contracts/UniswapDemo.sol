@@ -89,7 +89,7 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
         quantities[0] = quantityFNFTs;
 
         // Gives us a unique ID we can use to store additional data
-        fnftId = getRevest().mintTimeLock(endTime, recipients, quantities, fnftConfig);
+        fnftId = getRevest().mintTimeLock{value:msg.value}(endTime, recipients, quantities, fnftConfig);
 
         // Use that unique ID to store the path we want to take
         pendingTrades[fnftId] = pathToSwaps;

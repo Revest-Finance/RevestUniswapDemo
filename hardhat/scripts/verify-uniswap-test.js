@@ -24,7 +24,7 @@ const UNISWAP = {
 
 async function main() {
 
-    let DEPLOYED_CONTRACT = "0x5bA4a2B634eC592507B600231ad04d6Ab9E4bBb8"
+    let DEPLOYED_CONTRACT = "0x3cCc20d960e185E863885913596b54ea666b2fe7"
 
     const network = await ethers.provider.getNetwork();
     const chainId = network.chainId;

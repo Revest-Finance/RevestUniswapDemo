@@ -18,7 +18,7 @@ const separator = "\t-----------------------------------------";
 // 31337 is the default hardhat forking network
 const PROVIDERS = {
     1:'0xD721A90dd7e010c8C5E022cc0100c55aC78E0FC4',
-    31337: "0xD721A90dd7e010c8C5E022cc0100c55aC78E0FC4",
+    31337: "0xe0741aE6a8A6D87A68B7b36973d8740704Fd62B9",
     4:"0x21744C9A65608645E1b39a4596C39848078C2865",
     137:"0xC03bB46b3BFD42e6a2bf20aD6Fa660e4Bd3736F8",
     250:"0xe0741aE6a8A6D87A68B7b36973d8740704Fd62B9",
@@ -27,7 +27,7 @@ const PROVIDERS = {
 
 const WETH ={
     1:"0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-    31337: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+    31337: "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
     4:"0xc778417e063141139fce010982780140aa0cd5ab",
     137:"0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270",
     250:"0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
@@ -36,7 +36,7 @@ const WETH ={
 
 const UNISWAP = {
     1: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
-    31337: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
+    31337: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52",
     4: "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D",
     137: "0xa5E0829CaCEd8fFDD4De3c43696c57F7D7A678ff", //QuickSwap
     250: "0x16327E3FbDaCA3bcF7E38F5Af2599D2DDc33aE52", //SpiritSwap
@@ -45,11 +45,11 @@ const UNISWAP = {
 
 const TEST_TOKEN = {
     1: "0x120a3879da835A5aF037bB2d1456beBd6B54d4bA", //RVST
-    31337: "0x120a3879da835A5aF037bB2d1456beBd6B54d4bA",
+    31337: "0x5cc61a78f164885776aa610fb0fe1257df78e59b",//SPIRIT
 };
 
 // Tooled for mainnet Ethereum
-const REVEST = '0x2320A28f52334d62622cc2EaFa15DE55F9987eD9';
+const REVEST = '0x951e7c0A50b70Cd7bB5C244A9bD7aF76e563485F';
 const revestABI = ['function withdrawFNFT(uint tokenUID, uint quantity) external'];
 
 const HOUR = 3600;
@@ -67,7 +67,7 @@ let fnftId;
 const quantity = 1;
 
 let whales = [
-    "0x801e08919a483ceA4C345b5f8789E506e2624ccf", //Holds a ton of RVST
+    "0x9EB52C04e420E40846f73D09bD47Ab5e25821445", //Holds a ton of RVST
 ];
 let whaleSigners = [];
 
@@ -112,7 +112,7 @@ describe("Revest", function () {
             await UniswapDemo.deployed();
 
             // The contract object
-            rvstTokenContract = new ethers.Contract(TEST_TOKEN[chainId], abi, owner);
+            rvstTokenContract = new ethers.Contract(WETH[chainId], abi, owner);
 
             for (const whale of whales) {
                 let signer = await ethers.provider.getSigner(whale);
@@ -130,10 +130,10 @@ describe("Revest", function () {
     it("Should test minting of an FNFT with this system", async function () {
         // Outline the parameters that will govern the FNFT
         let expiration = Math.floor(Date.now()/1000) + 3600 * 48;
-        let fee = ethers.utils.parseEther('0');//FTM fee
-        let amountPer = ethers.utils.parseEther('1'); //WFTM
-        let asset1 = TEST_TOKEN[chainId]; 
-        let asset2 = WETH[chainId];
+        let fee = ethers.utils.parseEther('3');//FTM fee
+        let amountPer = ethers.utils.parseEther('0.0001'); //WFTM
+        let asset1 = WETH[chainId]; 
+        let asset2 = TEST_TOKEN[chainId];
 
         // Mint the FNFT
         fnftId = await UniswapDemo.connect(whaleSigners[0]).callStatic.mintTimeLockToUniswap(expiration,amountPer,quantity, [asset1, asset2], {value:fee});
@@ -141,10 +141,15 @@ describe("Revest", function () {
         
     });
 
+    it("Should test the metadata calls", async () => {
+        let res = await UniswapDemo.getOutputDisplayValues(fnftId);
+        console.log(res);
+    });
+
     it("Should fast-forward time and attempt to unlock that FNFT", async () => {
         await timeTravel(3*DAY);
         // Instantiate the Revest and WETH contracts
-        let wethContract = new ethers.Contract(WETH[chainId], abi, whaleSigners[0]);
+        let wethContract = new ethers.Contract(TEST_TOKEN[chainId], abi, whaleSigners[0]);
         let Revest = new ethers.Contract(REVEST, revestABI, whaleSigners[0]);
 
         // Check our current balance of WETH

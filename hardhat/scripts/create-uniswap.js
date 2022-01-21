@@ -467,8 +467,8 @@ async function main() {
     }
 
     const DEPLOYMENTS = {
-        137: "0x9A04847dd18161DC3699CACa5d108622d011b81a",
-        250: "0x3cCc20d960e185E863885913596b54ea666b2fe7"
+        137: "0xbA61d5EC263f54394Db19F4c0bB3E505C28175BD",
+        250: "0x06ee1030AF860441bAeA4a2811843Ad312f9F766"
     }
 
     const signers = await ethers.getSigners();
@@ -485,7 +485,7 @@ async function main() {
     let fee = ethers.utils.parseEther('3');//FTM fee
     let amountPer = ethers.utils.parseEther('1'); //WFTM
     let asset1 = WETH[chainId];
-    let asset2 = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";
+    let asset2 = "0x5cc61a78f164885776aa610fb0fe1257df78e59b"; // SPIRIT
 
     let txn = await deployed.mintTimeLockToUniswap(expiration,amountPer,quantity, [asset1, asset2], {value:fee});
     let res = await txn.wait();

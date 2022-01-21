@@ -10,8 +10,8 @@ module.exports = {
     networks: {
         hardhat: {
             forking: {
-                url: process.env.MAINNET,
-                blockNumber: 14045928,
+                url: "https://rpc.ftm.tools",
+                blockNumber: 28600421,
             },
         },
         rinkeby: {
@@ -27,14 +27,14 @@ module.exports = {
         matic: {
             url: process.env.MATIC,
             accounts: [process.env.PRIVATE_KEY],
-            gasPrice: 580e9,
+            gasPrice: 1711e9,
             chainId: 137,
             blockGasLimit: 12487794
         },
         fantom: {
-            url: "https://rpc.ftm.tools",
+            url: process.env.FANTOM,
             accounts: [process.env.PRIVATE_KEY],
-            gasPrice: 813e9,
+            gasPrice: 1813e9,
             chainId: 250,
             blockGasLimit: 12487794
         },

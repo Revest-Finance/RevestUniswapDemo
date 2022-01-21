@@ -19,3 +19,7 @@ Things not discussed in detail for this tech demo:
 # Deployment
 
 This demo is currently deployed on Fantom Opera at 0x06ee1030AF860441bAeA4a2811843Ad312f9F766
+
+# Contracts
+
+Public Revest Contracts are available at https://github.com/Revest-Finance/RevestContracts

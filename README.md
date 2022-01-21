@@ -18,4 +18,4 @@ Things not discussed in detail for this tech demo:
 
 # Deployment
 
-This demo is currently deployed on Fantom Opera at 0x5bA4a2B634eC592507B600231ad04d6Ab9E4bBb8
+This demo is currently deployed on Fantom Opera at 0x06ee1030AF860441bAeA4a2811843Ad312f9F766

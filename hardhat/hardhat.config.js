@@ -10,8 +10,8 @@ module.exports = {
     networks: {
         hardhat: {
             forking: {
-                url: process.env.MAINNET,
-                blockNumber: 14045369,
+                url: process.env.MATIC,
+                blockNumber: 23965415,
             },
         },
         rinkeby: {

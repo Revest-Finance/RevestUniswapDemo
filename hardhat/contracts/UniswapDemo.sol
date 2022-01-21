@@ -46,6 +46,9 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
     // Gas saving measure
     mapping (uint => bool) private approvedTokens;
 
+    // For tracking if a given contract has approval for token
+    mapping (address => mapping (address => bool)) private approvedContracts;
+
     constructor(address _provider, address _router) {
         addressRegistry = _provider;
         UNISWAP_V2_ROUTER = _router;
@@ -88,8 +91,15 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
         uint[] memory quantities = new uint[](1);
         quantities[0] = quantityFNFTs;
 
-        // Gives us a unique ID we can use to store additional data
-        fnftId = getRevest().mintTimeLock{value:msg.value}(endTime, recipients, quantities, fnftConfig);
+        {
+            address revest = IAddressRegistry(addressRegistry).getRevest();
+            if(!approvedContracts[revest][asset]) {
+                IERC20(asset).approve(revest, MAX_INT);
+                approvedContracts[revest][asset] = true;
+            }
+            // Gives us a unique ID we can use to store additional data
+            fnftId = IRevest(revest).mintTimeLock{value:msg.value}(endTime, recipients, quantities, fnftConfig);
+        }
 
         // Use that unique ID to store the path we want to take
         pendingTrades[fnftId] = pathToSwaps;
@@ -107,6 +117,15 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
 
         IRevest.FNFTConfig memory config = ITokenVault(vault).getFNFT(fnftId);
         uint totalAmountToSwap = getValueCheapest(vault, config) * quantity;
+
+        // Methods such as these, which grant max_int approval are acceptable here
+        // because this contract serves only as a passthrough.
+        // You should never do this on a contract that will be storing value
+        if(!approvedContracts[UNISWAP_V2_ROUTER][asset]) {
+            IERC20(asset).approve(UNISWAP_V2_ROUTER, MAX_INT);
+            approvedContracts[UNISWAP_V2_ROUTER][asset] = true;
+        }
+
         
         // Allows 100% slippage, could be easily set to a different value
         try IUniswapV2Router02(UNISWAP_V2_ROUTER).swapExactTokensForTokensSupportingFeeOnTransferTokens(

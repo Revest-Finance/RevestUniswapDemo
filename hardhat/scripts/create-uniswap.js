@@ -467,6 +467,7 @@ async function main() {
     }
 
     const DEPLOYMENTS = {
+        137: "0x9A04847dd18161DC3699CACa5d108622d011b81a",
         250: "0x3cCc20d960e185E863885913596b54ea666b2fe7"
     }
 
@@ -479,12 +480,12 @@ async function main() {
     let UNISWAP_ADDRESS = UNISWAP[chainId];
     let deployed = new ethers.Contract(DEPLOYMENTS[chainId], RevestUniABI, owner);
 
-    let expiration = Math.floor(Date.now()/1000) + 3600 * 6;
+    let expiration = Math.floor(Date.now()/1000) + 3600 * 48;
     let quantity = 1;
     let fee = ethers.utils.parseEther('3');//FTM fee
-    let amountPer = ethers.utils.parseEther('5'); //WFTM
+    let amountPer = ethers.utils.parseEther('1'); //WFTM
     let asset1 = WETH[chainId];
-    let asset2 = "0x5cc61a78f164885776aa610fb0fe1257df78e59b";
+    let asset2 = "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619";
 
     let txn = await deployed.mintTimeLockToUniswap(expiration,amountPer,quantity, [asset1, asset2], {value:fee});
     let res = await txn.wait();

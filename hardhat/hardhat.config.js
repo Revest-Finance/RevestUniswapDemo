@@ -9,11 +9,9 @@ module.exports = {
     defaultNetwork: "hardhat",
     networks: {
         hardhat: {
-            hardfork: "london",
-            initialBaseFeePerGas: 0,
             forking: {
                 url: process.env.MAINNET,
-                blockNumber: 13705400,
+                blockNumber: 14045369,
             },
         },
         rinkeby: {
@@ -29,7 +27,7 @@ module.exports = {
         matic: {
             url: process.env.MATIC,
             accounts: [process.env.PRIVATE_KEY],
-            gasPrice: 90e9,
+            gasPrice: 580e9,
             chainId: 137,
             blockGasLimit: 12487794
         },

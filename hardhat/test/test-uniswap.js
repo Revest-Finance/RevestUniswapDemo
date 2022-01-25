@@ -155,8 +155,12 @@ describe("Revest", function () {
         // Check our current balance of WETH
         let orginalBal = await wethContract.balanceOf(whales[0]);
 
+        console.log("Here");
+
         // Withdraw from the FNFT and execute the swap
         let txn = await Revest.withdrawFNFT(fnftId, quantity);
+
+        console.log("Here2");
 
         // If the swap was correctly executed, we have a greater balance of WETH than when we started
         let newBal = await wethContract.balanceOf(whales[0]);
@@ -171,11 +175,6 @@ async function setupImpersonator(addr) {
         method: "hardhat_impersonateAccount",
         params: [addr],
     });
-}
-
-async function timeTravel(time) {
-    await network.provider.send("evm_increaseTime", [time]);
-    await network.provider.send("evm_mine");
 }
 
 async function approveAll(signer, address) {

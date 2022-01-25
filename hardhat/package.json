@@ -1,4 +1,26 @@
 {
+  "name": "revest",
+  "description": "Revest Uniswap Demo",
+  "version": "1.0.0",
+  "main": "hardhat.config.ts",
+  "scripts": {
+    "lint": "yarn prettier ./test/*.ts --check",
+    "lint:fix": "yarn prettier ./test/*.ts --write",
+    "clean": "rimraf ./build/",
+    "copy-v1-artifacts": "ncp ./buildV1 ./build",
+    "precompile": "yarn clean",
+    "compile": "waffle .waffle.json",
+    "postcompile": "yarn copy-v1-artifacts",
+    "pretest": "yarn compile",
+    "test": "mocha",
+    "prepublishOnly": "yarn test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-etherscan": "^2.1.4",
@@ -9,16 +31,41 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.4.4",
     "hardhat": "^2.8.3",
-    "hardhat-deploy": "^0.8.11"
-  },
-  "name": "hardhat",
-  "description": "# Install yarn install",
-  "version": "1.0.0",
-  "main": "hardhat.config.js",
-  "directories": {
-    "test": "test"
+    "hardhat-deploy": "^0.8.11",
+    "solidity-coverage": "^0.7.18",
+    "@commitlint/cli": "^9.1.2",
+    "@commitlint/config-conventional": "^9.1.2",
+    "@ethersproject/abstract-signer": "^5.1.0",
+    "@ethersproject/bignumber": "^5.1.1",
+    "@openzeppelin/hardhat-upgrades": "^1.8.2",
+    "@typechain/ethers-v5": "^5.0.0",
+    "@typechain/hardhat": "^1.0.1",
+    "@types/chai": "^4.3.0",
+    "@types/fs-extra": "^9.0.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.18.0",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "commitizen": "^4.2.1",
+    "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.2.0",
+    "fs-extra": "^9.0.1",
+    "hardhat-gas-reporter": "^1.0.4",
+    "husky": "^4.3.0",
+    "mocha": "^8.1.3",
+    "prettier": "^2.1.2",
+    "prettier-plugin-solidity": "^1.0.0-beta.9",
+    "shelljs": "^0.8.4",
+    "solhint": "^3.3.4",
+    "solhint-plugin-prettier": "^0.0.5",
+    "ts-generator": "^0.1.1",
+    "ts-node": "^8.10.2",
+    "typechain": "^4.0.1",
+    "typescript": "^4.0.8"
   },
   "dependencies": {
+    "hardhat-contract-sizer": "^2.1.1",
     "@uniswap/v2-core": "^1.0.1",
     "@uniswap/v2-periphery": "^1.1.0-beta.0",
     "@uniswap/v3-core": "^1.0.0",
@@ -99,9 +146,7 @@
     "follow-redirects": "^1.14.1",
     "for-each": "^0.3.3",
     "fp-ts": "^1.19.3",
-    "fs-extra": "^7.0.1",
     "fs.realpath": "^1.0.0",
-    "fsevents": "^2.3.2",
     "function-bind": "^1.1.1",
     "functional-red-black-tree": "^1.0.1",
     "get-caller-file": "^2.0.5",
@@ -251,7 +296,6 @@
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
     "type-fest": "^0.21.3",
-    "typescript": "^4.3.5",
     "unbox-primitive": "^1.0.1",
     "universalify": "^0.1.2",
     "unpipe": "^1.0.0",
@@ -272,10 +316,7 @@
     "yargs-parser": "^13.1.2",
     "yargs-unparser": "^1.6.0"
   },
-  "scripts": {
-    "test": "mocha"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "optionalDependencies": {
+    "fsevents": "^2.3.2"
+  }
 }

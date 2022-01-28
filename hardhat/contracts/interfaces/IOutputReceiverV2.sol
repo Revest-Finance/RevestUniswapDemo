@@ -21,15 +21,19 @@ interface IOutputReceiverV2 is IOutputReceiver {
         uint quantity,
         IRevest.FNFTConfig memory config,
         bytes memory args
-    ) external;
+    ) external payable;
 
     // Allows for similar function to address lock, updating state while still locked
+    // Called by the user directly
     function triggerOutputReceiverUpdate(
         uint fnftId,
         bytes memory args
     ) external;
 
     // This function should only ever be called when a split or additional deposit has occurred 
-    function handleFNFTRemaps(uint fnftId, uint[] memory newFNFTIds, bool cleanup) external;
+    function handleFNFTRemaps(uint fnftId, uint[] memory newFNFTIds, address caller, bool cleanup) external;
+
+    // This function provides more info about the additional deposit made
+    function handleAdditionalDeposit(uint fnftId, uint amountToDeposit, address depositCaller) external;
 
 }

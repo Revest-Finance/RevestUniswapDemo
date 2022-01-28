@@ -184,9 +184,11 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
 
     // Not applicable, as these cannot be split
     // Why not? We don't enable it in IRevest.FNFTConfig
-    function handleFNFTRemaps(uint, uint[] memory, bool) external pure override {
+    function handleFNFTRemaps(uint, uint[] memory, address, bool) external pure override {
         require(false, 'Not applicable');
     }
+
+    function handleAdditionalDeposit(uint, uint, address) external {}
 
     // Allows custom parameters to be passed during withdrawals
     // This and the proceeding method are both parts of the V2 output receiver interface
@@ -197,7 +199,7 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
         uint quantity,
         IRevest.FNFTConfig memory config,
         bytes memory args
-    ) external override {}
+    ) external payable override {}
 
     // Not necessary for this system
     // The aforementioned also applies to this functions

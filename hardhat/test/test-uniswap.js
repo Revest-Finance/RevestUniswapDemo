@@ -128,8 +128,12 @@ describe("Revest", function () {
 
     
     it("Should test minting of an FNFT with this system", async function () {
+        let recent = await ethers.provider.getBlockNumber();
+        let block = await ethers.provider.getBlock(recent);
+        let time = block.timestamp;
+
         // Outline the parameters that will govern the FNFT
-        let expiration = Math.floor(Date.now()/1000) + 3600 * 48;
+        let expiration = time + 3600 * 24;
         let fee = ethers.utils.parseEther('3');//FTM fee
         let amountPer = ethers.utils.parseEther('0.0001'); //WFTM
         let asset1 = WETH[chainId]; 
@@ -138,7 +142,7 @@ describe("Revest", function () {
         // Mint the FNFT
         fnftId = await UniswapDemo.connect(whaleSigners[0]).callStatic.mintTimeLockToUniswap(expiration,amountPer,quantity, [asset1, asset2], {value:fee});
         let txn = await UniswapDemo.connect(whaleSigners[0]).mintTimeLockToUniswap(expiration,amountPer,quantity, [asset1, asset2], {value:fee});
-        
+        await txn.wait();
     });
 
     it("Should test the metadata calls", async () => {
@@ -157,6 +161,7 @@ describe("Revest", function () {
 
         // Withdraw from the FNFT and execute the swap
         let txn = await Revest.withdrawFNFT(fnftId, quantity);
+        await txn.wait();
 
         // If the swap was correctly executed, we have a greater balance of WETH than when we started
         let newBal = await wethContract.balanceOf(whales[0]);

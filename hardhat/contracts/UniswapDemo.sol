@@ -188,7 +188,7 @@ contract UniswapDemo is IOutputReceiverV2, Ownable, ERC165 {
         require(false, 'Not applicable');
     }
 
-    function handleAdditionalDeposit(uint, uint, address) external {}
+    function handleAdditionalDeposit(uint, uint, address) external override {}
 
     // Allows custom parameters to be passed during withdrawals
     // This and the proceeding method are both parts of the V2 output receiver interface
